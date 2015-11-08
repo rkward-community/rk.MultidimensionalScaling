@@ -2,11 +2,18 @@
 //perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
-var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
-var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
-var frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
+var frmUsnlysbsChecked;
+var vrslSlctdvrbShortname;
+var frmDtprprtnEnabled;
+
+function setGlobalVars(){
+	frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
+	vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
+	frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
+}
 
 function preprocess(){
+	setGlobalVars();
 	// add requirements etc. here
 	echo("require(MASS)\n");
 }
@@ -31,43 +38,52 @@ function calculate(){
 	var frmPltlblsfChecked = getBoolean("frm_Pltlblsf.checked");
 
 	// the R code to be evaluated
+	var frmUsnlysbsChecked = getValue("frm_Usnlysbs.checked");
+	var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
+	var frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
 	if(frmUsnlysbsChecked && vrslSlctdvrbShortname != "") {
-		echo("\t# Use subset of variables\n\t" + vrslDtdtfrmm + " <- subset(" + vrslDtdtfrmm + ", select=c(\"" + vrslSlctdvrbShortname + "\"))\n");
+		comment("Use subset of variables", "\t");
+		echo("\t" + vrslDtdtfrmm + " <- subset(" + vrslDtdtfrmm + ", select=c(\"" + vrslSlctdvrbShortname + "\"))\n");
 	}
-	if(frmDtprprtnEnabled && chcRmvmssng) {
-		echo("\t# Listwise removal of missings\n\t" + vrslDtdtfrmm + " <- na.omit(" + vrslDtdtfrmm + ")\n");
+		if(frmDtprprtnEnabled && chcRmvmssng) {
+		comment("Listwise removal of missings", "\t");
+		echo("\t" + vrslDtdtfrmm + " <- na.omit(" + vrslDtdtfrmm + ")\n");
 	}
-	if(frmDtprprtnEnabled && chcStdrdzvl) {
-		echo("\t# Standardizing values\n\t" + vrslDtdtfrmm + " <- scale(" + vrslDtdtfrmm + ")\n");
+		if(frmDtprprtnEnabled && chcStdrdzvl) {
+		comment("Standardizing values", "\t");
+		echo("\t" + vrslDtdtfrmm + " <- scale(" + vrslDtdtfrmm + ")\n");
 	}
 	if(frmDtprprtnEnabled) {
-		echo("\t# Compute distance matrix\n\tmds.distances <- dist(");
-		if(vrslDtdtfrmm) {
+		comment("Compute distance matrix", "\t");
+		echo("\tmds.distances <- dist(");
+				if(vrslDtdtfrmm) {
 			echo("\n\t\tx=" + vrslDtdtfrmm);
 		}
 		echo(",\n\t\tmethod=\"" + drpCmpttnmt + "\"");
-		if(drpCmpttnmt == "minkowski") {
+				if(drpCmpttnmt == "minkowski") {
 			echo(",\n\t\tp=" + spnPwrfMnkw);
 		}
 		echo("\n\t)\n");
-		echo("\t# The actual multidimensional scaling\n\t\tmds.result <- " + drpSclngmth + "(");
-		if(vrslDtdtfrmm) {
+		comment("The actual multidimensional scaling", "\t");
+		echo("\tmds.result <- " + drpSclngmth + "(");
+				if(vrslDtdtfrmm) {
 			echo("\n\t\td=mds.distances");
 		}
 		echo(",\n\t\tk=" + spnMxmmdmns);
-		if(drpSclngmth == "isoMDS") {
+				if(drpSclngmth == "isoMDS") {
 			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
 		} else if(drpSclngmth == "sammon") {
 			echo(",\n\t\tniter=" + spnMxmmnmbr);
 		}
 		echo("\n\t)\n\n");
 	} else {
-		echo("\t# The actual multidimensional scaling\n\t\tmds.result <- " + drpSclngmth + "(");
-		if(vrslDtdtfrmm) {
+		comment("The actual multidimensional scaling", "\t");
+		echo("\tmds.result <- " + drpSclngmth + "(");
+				if(vrslDtdtfrmm) {
 			echo("\n\t\td=" + vrslDtdtfrmm);
 		}
 		echo(",\n\t\tk=" + spnMxmmdmns);
-		if(drpSclngmth == "isoMDS") {
+				if(drpSclngmth == "isoMDS") {
 			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
 		} else if(drpSclngmth == "sammon") {
 			echo(",\n\t\tniter=" + spnMxmmnmbr);
@@ -136,31 +152,31 @@ function doPrintout(full){
 	if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
 		echo("[[\"points\"]]");
 	}
-	if(!embRkwrdpltptnGCodePrintout.match(/main\s*=/)) {
+		if(!embRkwrdpltptnGCodePrintout.match(/main\s*=/)) {
 		echo(",\n\t\t\tmain=\"Multidimensional scaling\"");
 	}
-	if(!embRkwrdpltptnGCodePrintout.match(/sub\s*=/)) {
+		if(!embRkwrdpltptnGCodePrintout.match(/sub\s*=/)) {
 		echo(",\n\t\t\tsub=\"Solution with " + spnMxmmdmns + " dimensions (" + drpSclngmth + ")\"");
 	}
-	if(frmPltlblsfChecked && drpTextpstn == 0) {
+		if(frmPltlblsfChecked && drpTextpstn == 0) {
 		echo(",\n\t\t\ttype=\"n\"");
 	}
 	echo(embRkwrdpltptnGCodePrintout.replace(/, /g, ",\n\t\t\t"));
 	echo(")");
 	if(frmPltlblsfChecked) {
 		echo("\n\t\ttext(mds.result");
-			if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
-				echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])");
-			} else {
-				echo(",\n\t\t\trownames(mds.result)");
-			}
-			if(spnTextsize != 1) {
-				echo(",\n\t\t\tcex=" + spnTextsize);
-			}
-			if(drpTextpstn != 0) {
-				echo(",\n\t\t\tpos=" + drpTextpstn);
-			}
-			echo(embRkwrdclrchsGCodePrintout + ")");
+				if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
+			echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])");
+		} else {
+			echo(",\n\t\t\trownames(mds.result)");
+		}
+				if(spnTextsize != 1) {
+			echo(",\n\t\t\tcex=" + spnTextsize);
+		}
+				if(drpTextpstn != 0) {
+			echo(",\n\t\t\tpos=" + drpTextpstn);
+		}
+		echo(embRkwrdclrchsGCodePrintout + ")");
 	}
 
 	// insert any option-setting code that should be run after the actual plot:
