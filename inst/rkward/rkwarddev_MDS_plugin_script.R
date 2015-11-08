@@ -4,6 +4,7 @@
 # *EXCEPT* for the last call, see below.
 
 require(rkwarddev)
+rkwarddev.required("0.07-4")
 
 local({
 # set the output directory to overwrite the actual plugin
@@ -134,80 +135,99 @@ lgc.sect.mds <- rk.XML.logic(
     lgc.data.from.selection <- rk.XML.connect(governor=var.data, client=var.select, get="available", set="root"),
     gov.data <- rk.XML.convert(sources=list(available=var.data), mode=c(notequals="")),
     lgc.enable.selected <- rk.XML.connect(governor=gov.data, client=frame.selected.vars, set="enabled"),
-    lgc.df.script <- rk.comment(id("
-      gui.addChangeCommand(\"", var.data, ".available\", \"dataChanged()\");
-      // this function is called whenever the data was changed
-      dataChanged = function(){
-          var prepareFrame = \"true\";
-          var selectFrame = \"true\";
-          var thisObject = makeRObject(gui.getValue(\"", var.data, ".available\"));
-          if(thisObject.classes()){
-            if(!thisObject.isDataFrame()){
-              selectFrame = \"false\";
-              if(thisObject.classes().indexOf(\"dist\") != -1){
-                prepareFrame = \"false\";
-              } else {}
+  lgc.df.script <- rk.comment(id("
+    gui.addChangeCommand(\"", var.data, ".available\", \"dataChanged()\");
+    // this function is called whenever the data was changed
+    dataChanged = function(){
+        var prepareFrame = \"true\";
+        var selectFrame = \"true\";
+        var thisObject = makeRObject(gui.getValue(\"", var.data, ".available\"));
+        if(thisObject.classes()){
+          if(!thisObject.isDataFrame()){
+            selectFrame = \"false\";
+            if(thisObject.classes().indexOf(\"dist\") != -1){
+              prepareFrame = \"false\";
             } else {}
           } else {}
-          gui.setValue(\"", frame.selected.vars, ".enabled\", selectFrame);
-          gui.setValue(\"", mds.pre.frame, ".enabled\", prepareFrame);
-        }", js=FALSE)),
-    MDS.gov.dist <- rk.XML.convert(sources=list(string=mds.drop.dist), mode=c(equals="minkowski")),
-    rk.XML.connect(governor=MDS.gov.dist, client=mds.spin.pwmink, set="enabled"),
-    rk.XML.connect(governor=mds.plot.cbox.plot, client=tab.mds.plot, set="enabled"),
-    MDS.gov.meth <- rk.XML.convert(sources=list(string=mds.drop.meth), mode=c(notequals="cmdscale")),
-    rk.XML.connect(governor=MDS.gov.meth, client=mds.spin.maxiter, set="enabled"),
-    # disable distance computation, if dist object given
-    lgc.isntDistData <- rk.XML.connect(governor=mds.pre.frame, get="enabled", client=mds.frame.dist, set="enabled"),
-    # set label text color to red
-    rk.XML.set(plot.text.color, set="color.string", to="red")
-  )
-
-## JavaScript
-js.global.vars <- rk.paste.JS(
-  js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked"), # see if the frame is checked
-  js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\""), # get selected vars
-  js.prepare <- rk.JS.vars(mds.pre.frame, modifiers="enabled"), # see if data preparation is off
-  level=1
+        } else {}
+        gui.setValue(\"", frame.selected.vars, ".enabled\", selectFrame);
+        gui.setValue(\"", mds.pre.frame, ".enabled\", prepareFrame);
+      }", js=FALSE)),
+  MDS.gov.dist <- rk.XML.convert(sources=list(string=mds.drop.dist), mode=c(equals="minkowski")),
+  rk.XML.connect(governor=MDS.gov.dist, client=mds.spin.pwmink, set="enabled"),
+  rk.XML.connect(governor=mds.plot.cbox.plot, client=tab.mds.plot, set="enabled"),
+  MDS.gov.meth <- rk.XML.convert(sources=list(string=mds.drop.meth), mode=c(notequals="cmdscale")),
+  rk.XML.connect(governor=MDS.gov.meth, client=mds.spin.maxiter, set="enabled"),
+  # disable distance computation, if dist object given
+  lgc.isntDistData <- rk.XML.connect(governor=mds.pre.frame, get="enabled", client=mds.frame.dist, set="enabled"),
+  # set label text color to red
+  rk.XML.set(plot.text.color, set="color.string", to="red")
 )
 
+## JavaScript
+js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked") # see if the frame is checked
+js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\"") # get selected vars
+js.prepare <- rk.JS.vars(mds.pre.frame, modifiers="enabled") # see if data preparation is off
+
+js.global.vars <- list(js.frm.subset, js.selected.vars, js.prepare)
+
 mds.js.calc <- rk.paste.JS(
-  ite(id(js.frm.subset, " && ", js.selected.vars, " != \"\""), echo("\t# Use subset of variables\n\t",
-    var.data, " <- subset(",var.data,", select=c(\"", js.selected.vars, "\"))\n")),
-  ite(id(js.prepare, " && ", mds.pre.omitNA), echo("\t# Listwise removal of missings\n\t",
-    var.data, " <- na.omit(", var.data, ")\n")),
-  ite(id(js.prepare, " && ", mds.pre.scale), echo("\t# Standardizing values\n\t",
-    var.data, " <- scale(", var.data, ")\n")),
-  ite(id(js.prepare),
-    rk.paste.JS(
-      echo("\t# Compute distance matrix\n\tmds.distances <- dist("),
-      ite(var.data, echo("\n\t\tx=", var.data)),
-      echo(",\n\t\tmethod=\"", mds.drop.dist, "\""),
-      ite(id(mds.drop.dist, " == \"minkowski\""), echo(",\n\t\tp=", mds.spin.pwmink)),
-      echo("\n\t)\n"),
-      echo("\t# The actual multidimensional scaling\n\t\tmds.result <- ", mds.drop.meth,"("),
-      ite(var.data, echo("\n\t\td=mds.distances")),
-      echo(",\n\t\tk=", mds.spin.ndim),
-      ite(id(mds.drop.meth, " == \"isoMDS\""),
-        echo(",\n\t\tmaxit=", mds.spin.maxiter),
-        ite(id(mds.drop.meth, " == \"sammon\""),
+  js.frm.subset, # see if the frame is checked
+  js.selected.vars, # get selected vars
+  js.prepare, # see if data preparation is off
+  js(
+    if(js.frm.subset && js.selected.vars != ""){
+      R.comment("Use subset of variables")
+      echo("\t", var.data, " <- subset(",var.data,", select=c(\"", js.selected.vars, "\"))\n")
+    },
+    if(js.prepare && mds.pre.omitNA){
+      R.comment("Listwise removal of missings")
+      echo("\t", var.data, " <- na.omit(", var.data, ")\n")
+    },
+    if(js.prepare && mds.pre.scale){
+      R.comment("Standardizing values")
+      echo("\t", var.data, " <- scale(", var.data, ")\n")
+    },
+    linebreaks=TRUE
+  ),
+  js(
+    if(js.prepare){
+      R.comment("Compute distance matrix")
+      echo("\tmds.distances <- dist(")
+      if(var.data){
+        echo("\n\t\tx=", var.data)
+      } else {}
+      echo(",\n\t\tmethod=\"", mds.drop.dist, "\"")
+      if(mds.drop.dist == "minkowski"){
+        echo(",\n\t\tp=", mds.spin.pwmink)
+      } else {}
+      echo("\n\t)\n")
+      R.comment("The actual multidimensional scaling")
+      echo("\tmds.result <- ", mds.drop.meth,"(")
+      if(var.data){
+        echo("\n\t\td=mds.distances")
+      } else {}
+      echo(",\n\t\tk=", mds.spin.ndim)
+      if(mds.drop.meth == "isoMDS"){
+        echo(",\n\t\tmaxit=", mds.spin.maxiter)
+      } else if(mds.drop.meth == "sammon"){
           echo(",\n\t\tniter=", mds.spin.maxiter)
-        )
-      ),
-      echo("\n\t)\n\n"), level=3
-    ),
-    rk.paste.JS(
-      echo("\t# The actual multidimensional scaling\n\t\tmds.result <- ", mds.drop.meth,"("),
-      ite(var.data, echo("\n\t\td=", var.data)),
-      echo(",\n\t\tk=", mds.spin.ndim),
-      ite(id(mds.drop.meth, " == \"isoMDS\""),
-        echo(",\n\t\tmaxit=", mds.spin.maxiter),
-        ite(id(mds.drop.meth, " == \"sammon\""),
-          echo(",\n\t\tniter=", mds.spin.maxiter)
-        )
-      ),
-      echo("\n\t)\n\n"), level=3
-    )
+      } else {}
+      echo("\n\t)\n\n")
+    } else {
+      R.comment("The actual multidimensional scaling")
+      echo("\tmds.result <- ", mds.drop.meth,"(")
+      if(var.data){
+        echo("\n\t\td=", var.data)
+      }
+      echo(",\n\t\tk=", mds.spin.ndim)
+      if(mds.drop.meth == "isoMDS"){
+        echo(",\n\t\tmaxit=", mds.spin.maxiter)
+      } else if(mds.drop.meth == "sammon"){
+        echo(",\n\t\tniter=", mds.spin.maxiter)
+      } else {}
+      echo("\n\t)\n\n")
+    }
   )
 )
 
@@ -218,25 +238,42 @@ mds.js.plot <- rk.paste.JS(
     rk.paste.JS.graph(
       rk.comment("label text color:"),
       echo("\t\tplot(mds.result"),
-      ite(id(mds.drop.meth, " == \"isoMDS\" || ", mds.drop.meth, " == \"sammon\""), echo("[[\"points\"]]")),
-      ite(id("!", generic.plot.options, ".match(/main\\s*=/)"),
-        echo(",\n\t\t\tmain=\"Multidimensional scaling\"")),
-      ite(id("!", generic.plot.options, ".match(/sub\\s*=/)"),
-        echo(",\n\t\t\tsub=\"Solution with ", mds.spin.ndim, " dimensions (", mds.drop.meth, ")\"")),
-      # turn off points if labels should replace them
-      ite(id(js.frm.labels, " && ", mds.plot.spin.label.pos, " == 0"), echo(",\n\t\t\ttype=\"n\"")),
+      js(
+        if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+          echo("[[\"points\"]]")
+        } else {},
+        if(id("!", generic.plot.options, ".match(/main\\s*=/)")){
+          echo(",\n\t\t\tmain=\"Multidimensional scaling\"")
+        } else {},
+        if(id("!", generic.plot.options, ".match(/sub\\s*=/)")){
+          echo(",\n\t\t\tsub=\"Solution with ", mds.spin.ndim, " dimensions (", mds.drop.meth, ")\"")
+        } else {},
+        # turn off points if labels should replace them
+        if(js.frm.labels && mds.plot.spin.label.pos == 0){
+          echo(",\n\t\t\ttype=\"n\"")
+        } else {},
+        linebreaks=TRUE
+      ),
       # generic plot options go here
       id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
       echo(")"),
-      ite(js.frm.labels, rk.paste.JS(
-        echo("\n\t\ttext(mds.result"),
-        ite(id(mds.drop.meth, " == \"isoMDS\" || ", mds.drop.meth, " == \"sammon\""),
-          echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])"),
-          echo(",\n\t\t\trownames(mds.result)")
-          ),
-        ite(id(mds.plot.spin.label.cex, " != 1"), echo(",\n\t\t\tcex=", mds.plot.spin.label.cex)),
-        ite(id(mds.plot.spin.label.pos, " != 0"), echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)),
-        echo(plot.text.color, ")"), level=4)),
+      js(
+        if(js.frm.labels){
+          echo("\n\t\ttext(mds.result")
+          if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+            echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])")
+          } else {
+            echo(",\n\t\t\trownames(mds.result)")
+          }
+          if(mds.plot.spin.label.cex != 1){
+            echo(",\n\t\t\tcex=", mds.plot.spin.label.cex)
+          } else {}
+          if(mds.plot.spin.label.pos != 0){
+            echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)
+          } else {}
+          echo(plot.text.color, ")")
+        } else {}
+      ),
       plotOpts=generic.plot.options
     ), level=3)
   ),
