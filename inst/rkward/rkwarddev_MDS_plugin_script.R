@@ -233,11 +233,61 @@ mds.js.calc <- rk.paste.JS(
 
 mds.js.plot <- rk.paste.JS(
   js.frm.labels <- rk.JS.vars(mds.plot.frame.labels, modifiers="checked"),
-  ite(mds.plot.cbox.plot, rk.paste.JS(echo("\n"),
-    plot.text.color,
-    rk.paste.JS.graph(
-      rk.comment("label text color:"),
-      echo("\t\tplot(mds.result"),
+#   ite(mds.plot.cbox.plot, rk.paste.JS(echo("\n"),
+#     plot.text.color,
+#     rk.paste.JS.graph(
+#       rk.comment("label text color:"),
+#       echo("\t\tplot(mds.result"),
+#       js(
+#         if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+#           echo("[[\"points\"]]")
+#         } else {},
+#         if(id("!", generic.plot.options, ".match(/main\\s*=/)")){
+#           echo(",\n\t\t\tmain=\"Multidimensional scaling\"")
+#         } else {},
+#         if(id("!", generic.plot.options, ".match(/sub\\s*=/)")){
+#           echo(",\n\t\t\tsub=\"Solution with ", mds.spin.ndim, " dimensions (", mds.drop.meth, ")\"")
+#         } else {},
+#         # turn off points if labels should replace them
+#         if(js.frm.labels && mds.plot.spin.label.pos == 0){
+#           echo(",\n\t\t\ttype=\"n\"")
+#         } else {},
+#         linebreaks=TRUE
+#       ),
+#       # generic plot options go here
+#       id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
+#       echo(")"),
+#       js(
+#         if(js.frm.labels){
+#           echo("\n\t\ttext(mds.result")
+#           if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+#             echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])")
+#           } else {
+#             echo(",\n\t\t\trownames(mds.result)")
+#           }
+#           if(mds.plot.spin.label.cex != 1){
+#             echo(",\n\t\t\tcex=", mds.plot.spin.label.cex)
+#           } else {}
+#           if(mds.plot.spin.label.pos != 0){
+#             echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)
+#           } else {}
+#           echo(plot.text.color, ")")
+#         } else {}
+#       ),
+#       plotOpts=generic.plot.options
+#     ), level=3)
+#   ),
+#   ite("full", rk.paste.JS(echo("\nrk.print(mds.result)\n"),
+#     # print selected subsets, if needed
+#     js.prt.subset <- ite(id(js.frm.subset, " & ", js.selected.vars, " != \"\""),
+#     echo("\nrk.header(\"Subset of variables included the analysis\", level=3)\nrk.print(list(\"", js.selected.vars, "\"))\n\n")), level=3))
+  js(
+    if(mds.plot.cbox.plot){
+      echo("\n")
+      rk.paste.JS(plot.text.color, level=1)
+      rk.paste.JS.graph(
+        rk.comment("label text color:"),
+        echo("\t\tplot(mds.result"),
       js(
         if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
           echo("[[\"points\"]]")
@@ -252,12 +302,9 @@ mds.js.plot <- rk.paste.JS(
         if(js.frm.labels && mds.plot.spin.label.pos == 0){
           echo(",\n\t\t\ttype=\"n\"")
         } else {},
-        linebreaks=TRUE
-      ),
-      # generic plot options go here
-      id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
-      echo(")"),
-      js(
+        # generic plot options go here
+        id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
+        echo(")"),
         if(js.frm.labels){
           echo("\n\t\ttext(mds.result")
           if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
@@ -272,10 +319,14 @@ mds.js.plot <- rk.paste.JS(
             echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)
           } else {}
           echo(plot.text.color, ")")
-        } else {}
+        } else {},
+        linebreaks=TRUE,
+        level=3
       ),
-      plotOpts=generic.plot.options
-    ), level=3)
+      plotOpts=generic.plot.options,
+      level=2)
+    } else {},
+    linebreaks=TRUE
   ),
   ite("full", rk.paste.JS(echo("\nrk.print(mds.result)\n"),
     # print selected subsets, if needed
