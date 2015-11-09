@@ -2,6 +2,8 @@
 
 This R package provides a GUI for multidimensional scaling.
 
+![rk.MultidimensionalScaling main tab](/inst/screenshots/main_tab.jpg?raw=true "rk.MultidimensionalScaling main tab")
+
 It is a plugin package for [RKWard](https://rkward.kde.org), a powerful GUI and IDE for [R](https://r-project.org),
 and will **only work in conjunction with RKWard**. However, RKWard is free software, please
 [check it out](https://rkward.kde.org).
