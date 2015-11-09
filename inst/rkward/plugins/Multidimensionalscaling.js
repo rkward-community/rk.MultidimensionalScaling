@@ -42,53 +42,53 @@ function calculate(){
 	var vrslSlctdvrbShortname = getValue("vrsl_Slctdvrb.shortname").split("\n").join("\", \"");
 	var frmDtprprtnEnabled = getValue("frm_Dtprprtn.enabled");
 	if(frmUsnlysbsChecked && vrslSlctdvrbShortname != "") {
-		comment("Use subset of variables", "\t");
-		echo("\t" + vrslDtdtfrmm + " <- subset(" + vrslDtdtfrmm + ", select=c(\"" + vrslSlctdvrbShortname + "\"))\n");
+		comment("Use subset of variables", "\t");	
+		echo("\t" + vrslDtdtfrmm + " <- subset(" + vrslDtdtfrmm + ", select=c(\"" + vrslSlctdvrbShortname + "\"))\n");	
 	}
-		if(frmDtprprtnEnabled && chcRmvmssng) {
-		comment("Listwise removal of missings", "\t");
-		echo("\t" + vrslDtdtfrmm + " <- na.omit(" + vrslDtdtfrmm + ")\n");
+	if(frmDtprprtnEnabled && chcRmvmssng) {
+		comment("Listwise removal of missings", "\t");	
+		echo("\t" + vrslDtdtfrmm + " <- na.omit(" + vrslDtdtfrmm + ")\n");	
 	}
-		if(frmDtprprtnEnabled && chcStdrdzvl) {
-		comment("Standardizing values", "\t");
-		echo("\t" + vrslDtdtfrmm + " <- scale(" + vrslDtdtfrmm + ")\n");
+	if(frmDtprprtnEnabled && chcStdrdzvl) {
+		comment("Standardizing values", "\t");	
+		echo("\t" + vrslDtdtfrmm + " <- scale(" + vrslDtdtfrmm + ")\n");	
 	}
 	if(frmDtprprtnEnabled) {
-		comment("Compute distance matrix", "\t");
-		echo("\tmds.distances <- dist(");
-				if(vrslDtdtfrmm) {
-			echo("\n\t\tx=" + vrslDtdtfrmm);
-		}
-		echo(",\n\t\tmethod=\"" + drpCmpttnmt + "\"");
-				if(drpCmpttnmt == "minkowski") {
-			echo(",\n\t\tp=" + spnPwrfMnkw);
-		}
-		echo("\n\t)\n");
-		comment("The actual multidimensional scaling", "\t");
-		echo("\tmds.result <- " + drpSclngmth + "(");
-				if(vrslDtdtfrmm) {
-			echo("\n\t\td=mds.distances");
-		}
-		echo(",\n\t\tk=" + spnMxmmdmns);
-				if(drpSclngmth == "isoMDS") {
-			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
+		comment("Compute distance matrix", "\t");	
+		echo("\tmds.distances <- dist(");	
+		if(vrslDtdtfrmm) {
+			echo("\n\t\tx=" + vrslDtdtfrmm);	
+		}	
+		echo(",\n\t\tmethod=\"" + drpCmpttnmt + "\"");	
+		if(drpCmpttnmt == "minkowski") {
+			echo(",\n\t\tp=" + spnPwrfMnkw);	
+		}	
+		echo("\n\t)\n");	
+		comment("The actual multidimensional scaling", "\t");	
+		echo("\tmds.result <- " + drpSclngmth + "(");	
+		if(vrslDtdtfrmm) {
+			echo("\n\t\td=mds.distances");	
+		}	
+		echo(",\n\t\tk=" + spnMxmmdmns);	
+		if(drpSclngmth == "isoMDS") {
+			echo(",\n\t\tmaxit=" + spnMxmmnmbr);	
 		} else if(drpSclngmth == "sammon") {
-			echo(",\n\t\tniter=" + spnMxmmnmbr);
-		}
-		echo("\n\t)\n\n");
+			echo(",\n\t\tniter=" + spnMxmmnmbr);	
+		}	
+		echo("\n\t)\n\n");	
 	} else {
-		comment("The actual multidimensional scaling", "\t");
-		echo("\tmds.result <- " + drpSclngmth + "(");
-				if(vrslDtdtfrmm) {
-			echo("\n\t\td=" + vrslDtdtfrmm);
-		}
-		echo(",\n\t\tk=" + spnMxmmdmns);
-				if(drpSclngmth == "isoMDS") {
-			echo(",\n\t\tmaxit=" + spnMxmmnmbr);
+		comment("The actual multidimensional scaling", "\t");	
+		echo("\tmds.result <- " + drpSclngmth + "(");	
+		if(vrslDtdtfrmm) {
+			echo("\n\t\td=" + vrslDtdtfrmm);	
+		}	
+		echo(",\n\t\tk=" + spnMxmmdmns);	
+		if(drpSclngmth == "isoMDS") {
+			echo(",\n\t\tmaxit=" + spnMxmmnmbr);	
 		} else if(drpSclngmth == "sammon") {
-			echo(",\n\t\tniter=" + spnMxmmnmbr);
-		}
-		echo("\n\t)\n\n");
+			echo(",\n\t\tniter=" + spnMxmmnmbr);	
+		}	
+		echo("\n\t)\n\n");	
 	}
 }
 
@@ -131,61 +131,61 @@ function doPrintout(full){
 
 	var frmPltlblsfChecked = getValue("frm_Pltlblsf.checked");
 	if(chcPltrslts) {
-		echo("\n");
-		var embRkwrdclrchsGCodePrintout = getValue("emb_rkwrdclrchsG.code.printout");
-		// in case there are generic plot options defined:
-	var embRkwrdpltptnGCodePreprocess = getValue("emb_rkwrdpltptnG.code.preprocess");
-	var embRkwrdpltptnGCodePrintout = getValue("emb_rkwrdpltptnG.code.printout");
-	var embRkwrdpltptnGCodeCalculate = getValue("emb_rkwrdpltptnG.code.calculate");
+		echo("\n");	
+		var embRkwrdclrchsGCodePrintout = getValue("emb_rkwrdclrchsG.code.printout");	
+				// in case there are generic plot options defined:
+		var embRkwrdpltptnGCodePreprocess = getValue("emb_rkwrdpltptnG.code.preprocess");
+		var embRkwrdpltptnGCodePrintout = getValue("emb_rkwrdpltptnG.code.printout");
+		var embRkwrdpltptnGCodeCalculate = getValue("emb_rkwrdpltptnG.code.calculate");
 
-	if(full) {
-		echo("rk.graph.on()\n");
-	}
-	echo("\ttry({\n");
+		if(full) {
+			echo("rk.graph.on()\n");
+		}
+		echo("\ttry({\n");
 
-	// insert any option-setting code that should be run before the actual plotting commands:
-	printIndentedUnlessEmpty("\t\t", embRkwrdpltptnGCodePreprocess, "\n", "");
+		// insert any option-setting code that should be run before the actual plotting commands:
+		printIndentedUnlessEmpty("\t\t\t", embRkwrdpltptnGCodePreprocess, "\n", "");
 
-	// the actual plot:
-	// label text color:
-	echo("\t\tplot(mds.result");
-	if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
-		echo("[[\"points\"]]");
-	}
+		// the actual plot:
+		// label text color:
+		echo("\t\tplot(mds.result");
+		if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
+			echo("[[\"points\"]]");	
+		}
 		if(!embRkwrdpltptnGCodePrintout.match(/main\s*=/)) {
-		echo(",\n\t\t\tmain=\"Multidimensional scaling\"");
-	}
+			echo(",\n\t\t\tmain=\"Multidimensional scaling\"");	
+		}
 		if(!embRkwrdpltptnGCodePrintout.match(/sub\s*=/)) {
-		echo(",\n\t\t\tsub=\"Solution with " + spnMxmmdmns + " dimensions (" + drpSclngmth + ")\"");
-	}
+			echo(",\n\t\t\tsub=\"Solution with " + spnMxmmdmns + " dimensions (" + drpSclngmth + ")\"");	
+		}
 		if(frmPltlblsfChecked && drpTextpstn == 0) {
-		echo(",\n\t\t\ttype=\"n\"");
-	}
-	echo(embRkwrdpltptnGCodePrintout.replace(/, /g, ",\n\t\t\t"));
-	echo(")");
-	if(frmPltlblsfChecked) {
-		echo("\n\t\ttext(mds.result");
-				if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
-			echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])");
-		} else {
-			echo(",\n\t\t\trownames(mds.result)");
+			echo(",\n\t\t\ttype=\"n\"");	
 		}
-				if(spnTextsize != 1) {
-			echo(",\n\t\t\tcex=" + spnTextsize);
+		echo(embRkwrdpltptnGCodePrintout.replace(/, /g, ",\n\t\t\t"));
+		echo(")");
+		if(frmPltlblsfChecked) {
+			echo("\n\t\ttext(mds.result");	
+			if(drpSclngmth == "isoMDS" || drpSclngmth == "sammon") {
+				echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])");	
+			} else {
+				echo(",\n\t\t\trownames(mds.result)");	
+			}	
+			if(spnTextsize != 1) {
+				echo(",\n\t\t\tcex=" + spnTextsize);	
+			}	
+			if(drpTextpstn != 0) {
+				echo(",\n\t\t\tpos=" + drpTextpstn);	
+			}	
+			echo(embRkwrdclrchsGCodePrintout + ")");	
 		}
-				if(drpTextpstn != 0) {
-			echo(",\n\t\t\tpos=" + drpTextpstn);
-		}
-		echo(embRkwrdclrchsGCodePrintout + ")");
-	}
 
-	// insert any option-setting code that should be run after the actual plot:
-	printIndentedUnlessEmpty("\t\t", embRkwrdpltptnGCodeCalculate, "\n", "");
+		// insert any option-setting code that should be run after the actual plot:
+		printIndentedUnlessEmpty("\t\t\t", embRkwrdpltptnGCodeCalculate, "\n", "");
 
-	echo("\n\t})\n");
-	if(full) {
-		echo("rk.graph.off()\n");
-	}
+		echo("\n\t})\n");
+		if(full) {
+			echo("rk.graph.off()\n");
+		}	
 	}
 	if(full) {
 		echo("\nrk.print(mds.result)\n");
