@@ -1,55 +1,55 @@
 <!DOCTYPE rkpluginmap >
 <document 
-	base_prefix=""
-	namespace="Multidimensionalscaling"
-	id="Multidimensionalscaling_rkward"
-	po_id="Multidimensionalscaling_rkward"
-	priority="medium"
+  base_prefix=""
+  namespace="Multidimensionalscaling"
+  id="Multidimensionalscaling_rkward"
+  po_id="Multidimensionalscaling_rkward"
+  priority="medium"
 >
-	<!-- 
-		this code was generated using the rkwarddev package.
-			perhaps don't make changes here, but in the rkwarddev script instead! 
-	-->
-	<dependencies rkward_min_version="0.6.0">
-		<package name="MASS" />
-	</dependencies>
-	<about 
-		name="rk.MultidimensionalScaling"
-		shortinfo="RKWard GUI for multidimensional scaling"
-		longinfo="RKWard GUI for multidimensional scaling"
-		version="0.01-11"
-		releasedate="2015-11-09"
-		url="https://rkward.kde.org"
-		license="GPL (&gt;= 3)"
-	>
-		<author 
-			given="Meik"
-			family="Michalke"
-			email="meik.michalke@hhu.de"
-			role="aut, cre"
-		 />
-	</about>
-	<require 
-		map="rkward::menu"
-	 />
-	<require 
-		map="rkward::embedded"
-	 />
-	<components>
-		<component 
-			id="cmp_MltdmnsnlsclngMltdmnsnlsc"
-			label="Multidimensional scaling"
-			type="standard"
-			file="plugins/Multidimensionalscaling.xml"
-		>
-		</component>
-	</components>
-	<hierarchy>
-		<menu 
-			id="analysis"
-			label="Analysis"
-		>
-			<entry component="cmp_MltdmnsnlsclngMltdmnsnlsc" />
-		</menu>
-	</hierarchy>
+  <!-- 
+    this code was generated using the rkwarddev package.
+        perhaps don't make changes here, but in the rkwarddev script instead! 
+  -->
+  <dependencies rkward_min_version="0.6.0">
+    <package name="MASS" />
+  </dependencies>
+  <about 
+    name="rk.MultidimensionalScaling"
+    shortinfo="RKWard GUI for multidimensional scaling"
+    longinfo="RKWard GUI for multidimensional scaling"
+    version="0.01-11"
+    releasedate="2015-11-10"
+    url="https://rkward.kde.org"
+    license="GPL (&gt;= 3)"
+  >
+    <author 
+      given="Meik"
+      family="Michalke"
+      email="meik.michalke@hhu.de"
+      role="aut, cre"
+     />
+  </about>
+  <require 
+    map="rkward::menu"
+   />
+  <require 
+    map="rkward::embedded"
+   />
+  <components>
+    <component 
+      id="cmp_MltdmnsnlsclngMltdmnsnlsc"
+      label="Multidimensional scaling"
+      type="standard"
+      file="plugins/Multidimensionalscaling.xml"
+    >
+    </component>
+  </components>
+  <hierarchy>
+    <menu 
+      id="analysis"
+      label="Analysis"
+    >
+      <entry component="cmp_MltdmnsnlsclngMltdmnsnlsc" />
+    </menu>
+  </hierarchy>
 </document>
