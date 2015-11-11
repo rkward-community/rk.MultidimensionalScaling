@@ -30,97 +30,108 @@ dependencies.info <- rk.XML.dependencies(
 ############
 ## prepare data
 ############
-mds.pre.omitNA <- rk.XML.cbox("Remove missing values", value="true", chk=TRUE)
-mds.pre.scale <- rk.XML.cbox("Stadardize values", value="true")
-mds.pre.frame <- rk.XML.frame(
+omitNA <- rk.XML.cbox("Remove missing values", value="true", chk=TRUE, id.name="omitNA")
+scale <- rk.XML.cbox("Stadardize values", value="true", id.name="scale")
+frameDataPrep <- rk.XML.frame(
   rk.XML.row(
-    rk.XML.col(mds.pre.omitNA),
-    rk.XML.col(mds.pre.scale)
+    rk.XML.col(omitNA),
+    rk.XML.col(scale)
   ),
-  label="Data preparation")
+  label="Data preparation",
+  id.name="frameDataPrep")
 
-generic.plot.options <- rk.plotOptions()
-plot.text.color <- rk.plotOptions(embed="rkward::color_chooser", button=FALSE)
+genPlotOptions <- rk.plotOptions(id.name="genPlotOptions")
+textCol <- rk.plotOptions(embed="rkward::color_chooser", button=FALSE, id.name="textCol")
 
 ############
 ## classical multidimensional scaling
 ############
-var.select <- rk.XML.varselector(label="Select data")
-var.data <- rk.XML.varslot(label="Data (data.frame, matrix or dist)", source=var.select, classes=c("data.frame", "matrix", "dist"), required=TRUE)
-selected.vars <- rk.XML.varslot(label="Selected variables", source=var.select, multi=TRUE)
-frame.selected.vars <- rk.XML.frame(selected.vars, label="Use only a subset of variables", checkable=TRUE, chk=FALSE)
+varSelect <- rk.XML.varselector(label="Select data", id.name="varSelect")
+data <- rk.XML.varslot(label="Data (data.frame, matrix or dist)", source=varSelect, classes=c("data.frame", "matrix", "dist"), required=TRUE, id.name="data")
+selectedVars <- rk.XML.varslot(label="Selected variables", source=varSelect, multi=TRUE, id.name="selectedVars")
+frameSelectedVars <- rk.XML.frame(selectedVars, label="Use only a subset of variables", checkable=TRUE, chk=FALSE, id.name="frameSelectedVars")
 
-mds.spin.ndim <- rk.XML.spinbox(label="Maximum dimensions", min=2, real=FALSE)
+ndim <- rk.XML.spinbox(label="Maximum dimensions", min=2, real=FALSE, id.name="ndim")
 
-mds.drop.meth <- rk.XML.dropdown(label="Scaling method", options=list(
+scaleMethod <- rk.XML.dropdown(label="Scaling method", options=list(
     "Classical (metric)"=c(val="cmdscale", chk=TRUE),
     "Kruskal (non-metric)"=c(val="isoMDS"),
     "Sammon (non-linear)"=c(val="sammon")
-  ))
+  ),
+  id.name="scaleMethod"
+)
 
-mds.drop.dist <- rk.XML.dropdown(label="Computation method", options=list(
+distMethod <- rk.XML.dropdown(label="Computation method", options=list(
     "Euclidean"=c(val="euclidean", chk=TRUE),
     "Maximum"=c(val="maximum"),
     "Manhattan (city block)"=c(val="manhattan"),
     "Canberra"=c(val="canberra"),
     "Binary"=c(val="binary"),
     "Minkowski"=c(val="minkowski")
-  ))
-mds.spin.pwmink <- rk.XML.spinbox(label="Power of Minkowski distance", min=1, initial=2, real=FALSE)
+  ),
+  id.name="distMethod"
+)
+pwrMinkowski <- rk.XML.spinbox(label="Power of Minkowski distance", min=1, initial=2, real=FALSE, id.name="pwrMinkowski")
 
-mds.spin.maxiter <- rk.XML.spinbox(label="Maximum number of iterations", min=1, initial=50, real=FALSE)
+maxIter <- rk.XML.spinbox(label="Maximum number of iterations", min=1, initial=50, real=FALSE, id.name="maxIter")
 #mds.spin.nstart <- rk.XML.spinbox(label="Initial random set of centers", min=1, initial=1, real=FALSE)
 
-save.results.mds <- rk.XML.saveobj("Save results to workspace", initial="mds.result")
+saveResults <- rk.XML.saveobj("Save results to workspace", initial="mds.result", id.name="saveResults")
 
 # plot results
-mds.plot.cbox.plot <- rk.XML.cbox("Plot results", val="true", chk=TRUE)
-mds.plot.spin.label.cex <- rk.XML.spinbox("Text size", initial=0.8)
-mds.plot.spin.label.pos <- rk.XML.dropdown(label="Text position", options=list(
+plotResults <- rk.XML.cbox("Plot results", val="true", chk=TRUE, id.name="plotResults")
+textSize <- rk.XML.spinbox("Text size", initial=0.8, id.name="textSize")
+textPos <- rk.XML.dropdown(label="Text position", options=list(
     "Instead of point"=c(val=0),
     "Below point"=c(val=1, chk=TRUE),
     "Left to point"=c(val=2),
     "Above point"=c(val=3),
     "Right to point"=c(val=4)
-  ))
-mds.plot.frame.labels <- rk.XML.frame(
-  plot.text.color,
-  mds.plot.spin.label.cex,
-  mds.plot.spin.label.pos,
-  label="Plot labels (from row names of data)", checkable=TRUE, chk=TRUE)
+  ),
+  id.name="textPos"
+)
+framePlotLabels <- rk.XML.frame(
+  textCol,
+  textSize,
+  textPos,
+  label="Plot labels (from row names of data)",
+  checkable=TRUE,
+  chk=TRUE,
+  id.name="framePlotLabels"
+)
 
 mds.plot.preview <- rk.XML.preview()
 
 tab.mds.data <- rk.XML.row(
-    var.select,
+    varSelect,
     rk.XML.col(
-      var.data,
-      frame.selected.vars,
-      mds.pre.frame,
+      data,
+      frameSelectedVars,
+      frameDataPrep,
       rk.XML.stretch(),
-      save.results.mds
+      saveResults
     ),
     rk.XML.col(
-      rk.XML.frame(mds.spin.ndim),
+      rk.XML.frame(ndim),
       rk.XML.stretch(),
-      mds.frame.dist <- rk.XML.frame(mds.drop.dist, mds.spin.pwmink, label="Distance matrix"),
+      mds.frame.dist <- rk.XML.frame(distMethod, pwrMinkowski, label="Distance matrix"),
       rk.XML.frame(
-        mds.drop.meth,
+        scaleMethod,
         rk.XML.row(
-          mds.spin.maxiter
-#           rk.XML.col(mds.spin.maxiter),
+          maxIter
+#           rk.XML.col(maxIter),
 #           rk.XML.col(mds.spin.nstart)
         ),
-        mds.plot.cbox.plot,
+        plotResults,
         label="Advanced options")
     )
   )
 
 tab.mds.plot <- rk.XML.row(
     rk.XML.col(
-      mds.plot.frame.labels,
+      framePlotLabels,
       rk.XML.stretch(),
-      generic.plot.options,
+      genPlotOptions,
       mds.plot.preview)
   )
 
@@ -132,17 +143,17 @@ mds.full.dialog <- rk.XML.dialog(
   label="Multidimensional scaling")
 
 lgc.sect.mds <- rk.XML.logic(
-    lgc.current.object <- rk.XML.connect(governor="current_object", client=var.data, set="available"),
-    lgc.data.from.selection <- rk.XML.connect(governor=var.data, client=var.select, get="available", set="root"),
-    gov.data <- rk.XML.convert(sources=list(available=var.data), mode=c(notequals="")),
-    lgc.enable.selected <- rk.XML.connect(governor=gov.data, client=frame.selected.vars, set="enabled"),
+    lgc.current.object <- rk.XML.connect(governor="current_object", client=data, set="available"),
+    lgc.data.from.selection <- rk.XML.connect(governor=data, client=varSelect, get="available", set="root"),
+    gov.data <- rk.XML.convert(sources=list(available=data), mode=c(notequals="")),
+    lgc.enable.selected <- rk.XML.connect(governor=gov.data, client=frameSelectedVars, set="enabled"),
   lgc.df.script <- rk.comment(id("
-    gui.addChangeCommand(\"", var.data, ".available\", \"dataChanged()\");
+    gui.addChangeCommand(", idq(data, modifiers="available", js=FALSE), ", \"dataChanged()\");
     // this function is called whenever the data was changed
     dataChanged = function(){
         var prepareFrame = \"true\";
         var selectFrame = \"true\";
-        var thisObject = makeRObject(gui.getValue(\"", var.data, ".available\"));
+        var thisObject = makeRObject(gui.getValue(", idq(data, modifiers="available", js=FALSE), "));
         if(thisObject.classes()){
           if(!thisObject.isDataFrame()){
             selectFrame = \"false\";
@@ -151,43 +162,43 @@ lgc.sect.mds <- rk.XML.logic(
             } else {}
           } else {}
         } else {}
-        gui.setValue(\"", frame.selected.vars, ".enabled\", selectFrame);
-        gui.setValue(\"", mds.pre.frame, ".enabled\", prepareFrame);
+        gui.setValue(", idq(frameSelectedVars, modifiers="enabled", js=FALSE), ", selectFrame);
+        gui.setValue(", idq(frameDataPrep, modifiers="enabled", js=FALSE), ", prepareFrame);
       }", js=FALSE)),
-  MDS.gov.dist <- rk.XML.convert(sources=list(string=mds.drop.dist), mode=c(equals="minkowski")),
-  rk.XML.connect(governor=MDS.gov.dist, client=mds.spin.pwmink, set="enabled"),
-  rk.XML.connect(governor=mds.plot.cbox.plot, client=tab.mds.plot, set="enabled"),
-  MDS.gov.meth <- rk.XML.convert(sources=list(string=mds.drop.meth), mode=c(notequals="cmdscale")),
-  rk.XML.connect(governor=MDS.gov.meth, client=mds.spin.maxiter, set="enabled"),
+  MDS.gov.dist <- rk.XML.convert(sources=list(string=distMethod), mode=c(equals="minkowski")),
+  rk.XML.connect(governor=MDS.gov.dist, client=pwrMinkowski, set="enabled"),
+  rk.XML.connect(governor=plotResults, client=tab.mds.plot, set="enabled"),
+  MDS.gov.meth <- rk.XML.convert(sources=list(string=scaleMethod), mode=c(notequals="cmdscale")),
+  rk.XML.connect(governor=MDS.gov.meth, client=maxIter, set="enabled"),
   # disable distance computation, if dist object given
-  lgc.isntDistData <- rk.XML.connect(governor=mds.pre.frame, get="enabled", client=mds.frame.dist, set="enabled"),
+  lgc.isntDistData <- rk.XML.connect(governor=frameDataPrep, get="enabled", client=mds.frame.dist, set="enabled"),
   # set label text color to red
-  rk.XML.set(plot.text.color, set="color.string", to="red")
+  rk.XML.set(textCol, set="color.string", to="red")
 )
 
 ## JavaScript
-js.frm.subset <- rk.JS.vars(frame.selected.vars, modifiers="checked") # see if the frame is checked
-js.selected.vars <- rk.JS.vars(selected.vars, modifiers="shortname", join="\\\", \\\"") # get selected vars
-js.prepare <- rk.JS.vars(mds.pre.frame, modifiers="enabled") # see if data preparation is off
+js.frm.subset <- rk.JS.vars(frameSelectedVars, modifiers="checked") # see if the frame is checked
+js.selectedVars <- rk.JS.vars(selectedVars, modifiers="shortname", join="\\\", \\\"") # get selected vars
+js.prepare <- rk.JS.vars(frameDataPrep, modifiers="enabled") # see if data preparation is off
 
-js.global.vars <- list(js.frm.subset, js.selected.vars, js.prepare)
+js.global.vars <- list(js.frm.subset, js.selectedVars, js.prepare)
 
 mds.js.calc <- rk.paste.JS(
   js.frm.subset, # see if the frame is checked
-  js.selected.vars, # get selected vars
+  js.selectedVars, # get selected vars
   js.prepare, # see if data preparation is off
   js(
-    if(js.frm.subset && js.selected.vars != ""){
+    if(js.frm.subset && js.selectedVars != ""){
       R.comment("Use subset of variables")
-      echo("\t", var.data, " <- subset(",var.data,", select=c(\"", js.selected.vars, "\"))\n")
+      echo("\t", data, " <- subset(",data,", select=c(\"", js.selectedVars, "\"))\n")
     },
-    if(js.prepare && mds.pre.omitNA){
+    if(js.prepare && omitNA){
       R.comment("Listwise removal of missings")
-      echo("\t", var.data, " <- na.omit(", var.data, ")\n")
+      echo("\t", data, " <- na.omit(", data, ")\n")
     },
-    if(js.prepare && mds.pre.scale){
+    if(js.prepare && scale){
       R.comment("Standardizing values")
-      echo("\t", var.data, " <- scale(", var.data, ")\n")
+      echo("\t", data, " <- scale(", data, ")\n")
     },
     linebreaks=TRUE
   ),
@@ -195,37 +206,37 @@ mds.js.calc <- rk.paste.JS(
     if(js.prepare){
       R.comment("Compute distance matrix")
       echo("\tmds.distances <- dist(")
-      if(var.data){
-        echo("\n\t\tx=", var.data)
+      if(data){
+        echo("\n\t\tx=", data)
       } else {}
-      echo(",\n\t\tmethod=\"", mds.drop.dist, "\"")
-      if(mds.drop.dist == "minkowski"){
-        echo(",\n\t\tp=", mds.spin.pwmink)
+      echo(",\n\t\tmethod=\"", distMethod, "\"")
+      if(distMethod == "minkowski"){
+        echo(",\n\t\tp=", pwrMinkowski)
       } else {}
       echo("\n\t)\n")
       R.comment("The actual multidimensional scaling")
-      echo("\tmds.result <- ", mds.drop.meth,"(")
-      if(var.data){
+      echo("\tmds.result <- ", scaleMethod,"(")
+      if(data){
         echo("\n\t\td=mds.distances")
       } else {}
-      echo(",\n\t\tk=", mds.spin.ndim)
-      if(mds.drop.meth == "isoMDS"){
-        echo(",\n\t\tmaxit=", mds.spin.maxiter)
-      } else if(mds.drop.meth == "sammon"){
-          echo(",\n\t\tniter=", mds.spin.maxiter)
+      echo(",\n\t\tk=", ndim)
+      if(scaleMethod == "isoMDS"){
+        echo(",\n\t\tmaxit=", maxIter)
+      } else if(scaleMethod == "sammon"){
+          echo(",\n\t\tniter=", maxIter)
       } else {}
       echo("\n\t)\n\n")
     } else {
       R.comment("The actual multidimensional scaling")
-      echo("\tmds.result <- ", mds.drop.meth,"(")
-      if(var.data){
-        echo("\n\t\td=", var.data)
+      echo("\tmds.result <- ", scaleMethod,"(")
+      if(data){
+        echo("\n\t\td=", data)
       }
-      echo(",\n\t\tk=", mds.spin.ndim)
-      if(mds.drop.meth == "isoMDS"){
-        echo(",\n\t\tmaxit=", mds.spin.maxiter)
-      } else if(mds.drop.meth == "sammon"){
-        echo(",\n\t\tniter=", mds.spin.maxiter)
+      echo(",\n\t\tk=", ndim)
+      if(scaleMethod == "isoMDS"){
+        echo(",\n\t\tmaxit=", maxIter)
+      } else if(scaleMethod == "sammon"){
+        echo(",\n\t\tniter=", maxIter)
       } else {}
       echo("\n\t)\n\n")
     }
@@ -233,59 +244,63 @@ mds.js.calc <- rk.paste.JS(
 )
 
 mds.js.plot <- rk.paste.JS(
-  js.frm.labels <- rk.JS.vars(mds.plot.frame.labels, modifiers="checked"),
+  js.frm.labels <- rk.JS.vars(framePlotLabels, modifiers="checked"),
   js(
-    if(mds.plot.cbox.plot){
+    if(plotResults){
       echo("\n")
-      rk.paste.JS(plot.text.color, level=1)
+      rk.paste.JS(textCol, level=1)
       rk.paste.JS.graph(
         rk.comment("label text color:"),
         echo("\t\tplot(mds.result"),
         js(
-          if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+          if(scaleMethod == "isoMDS" || scaleMethod == "sammon"){
             echo("[[\"points\"]]")
           } else {},
-          if(id("!", generic.plot.options, ".match(/main\\s*=/)")){
+          if(id("!", genPlotOptions, ".match(/main\\s*=/)")){
             echo(",\n\t\t\tmain=\"Multidimensional scaling\"")
           } else {},
-          if(id("!", generic.plot.options, ".match(/sub\\s*=/)")){
-            echo(",\n\t\t\tsub=\"Solution with ", mds.spin.ndim, " dimensions (", mds.drop.meth, ")\"")
+          if(id("!", genPlotOptions, ".match(/sub\\s*=/)")){
+            echo(",\n\t\t\tsub=\"Solution with ", ndim, " dimensions (", scaleMethod, ")\"")
           } else {},
           # turn off points if labels should replace them
-          if(js.frm.labels && mds.plot.spin.label.pos == 0){
+          if(js.frm.labels && textPos == 0){
             echo(",\n\t\t\ttype=\"n\"")
           } else {},
           # generic plot options go here
-          id("echo(", generic.plot.options, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
+          id("echo(", genPlotOptions, ".replace(/, /g, \",\\n\\t\\t\\t\"));"),
           echo(")"),
           if(js.frm.labels){
             echo("\n\t\ttext(mds.result")
-            if(mds.drop.meth == "isoMDS" || mds.drop.meth == "sammon"){
+            if(scaleMethod == "isoMDS" || scaleMethod == "sammon"){
               echo("[[\"points\"]],\n\t\t\trownames(mds.result[[\"points\"]])")
             } else {
               echo(",\n\t\t\trownames(mds.result)")
             }
-            if(mds.plot.spin.label.cex != 1){
-              echo(",\n\t\t\tcex=", mds.plot.spin.label.cex)
+            if(textSize != 1){
+              echo(",\n\t\t\tcex=", textSize)
             } else {}
-            if(mds.plot.spin.label.pos != 0){
-              echo(",\n\t\t\tpos=", mds.plot.spin.label.pos)
+            if(textPos != 0){
+              echo(",\n\t\t\tpos=", textPos)
             } else {}
-            echo(plot.text.color, ")")
+            echo(textCol, ")")
           } else {},
           linebreaks=TRUE,
           level=3
         ),
-        plotOpts=generic.plot.options,
+        plotOpts=genPlotOptions,
         level=3
       )
     } else {},
+    if("full"){
+      echo("\nrk.print(mds.result)\n")
+      # print selected subsets, if needed
+        if(js.frm.subset && js.selectedVars != ""){
+          rk.JS.header("Subset of variables included the analysis", level=3)
+          echo("rk.print(list(\"", js.selectedVars, "\"))\n\n")
+        } else {}
+    } else {},
     linebreaks=TRUE
-  ),
-  ite("full", rk.paste.JS(echo("\nrk.print(mds.result)\n"),
-    # print selected subsets, if needed
-    js.prt.subset <- ite(id(js.frm.subset, " & ", js.selected.vars, " != \"\""),
-    echo("\nrk.header(\"Subset of variables included the analysis\", level=3)\nrk.print(list(\"", js.selected.vars, "\"))\n\n")), level=3))
+  )
 )
 
 
