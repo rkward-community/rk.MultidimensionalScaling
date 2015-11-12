@@ -1,0 +1,279 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# m.eik michalke <m@reaktanz.de>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://p.sf.net/rkward/bugs\n"
+"POT-Creation-Date: 2015-11-12 21:39+0100\n"
+"PO-Revision-Date: 2015-11-12 21:38+0100\n"
+"Last-Translator: m.eik michalke <m@reaktanz.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "m.eik michalke"
+
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "meik.michalke@hhu.de"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:16
+#. i18n: ectx: <about name="...">
+msgid "rk.MultidimensionalScaling"
+msgstr "rk.MultidimensionalScaling"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:16
+#. i18n: ectx: <about shortinfo="...">
+msgid "RKWard GUI for multidimensional scaling"
+msgstr "RKWard GUI für Multidimensionale Skalierung"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:25
+#. i18n: ectx: <about> <author given="...">
+msgctxt "Author name"
+msgid "Meik"
+msgstr "Meik"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:25
+#. i18n: ectx: <about> <author family="...">
+msgctxt "Author name"
+msgid "Michalke"
+msgstr "Michalke"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:39
+#. i18n: ectx: <components> <component label="...">
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:128
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:43
+#. i18n: ectx: (Multidimensional scaling) <dialog label="...">
+msgid "Multidimensional scaling"
+msgstr "Multidimensionale Skalierung"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:45
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgctxt "R code comment"
+msgid "Use subset of variables"
+msgstr "Benutze eine Auswahl von Variablen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:49
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgctxt "R code comment"
+msgid "Listwise removal of missings"
+msgstr "Listenweiser Ausschluss fehlender Werte"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:53
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgctxt "R code comment"
+msgid "Standardizing values"
+msgstr "Werte standardisieren"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:57
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgctxt "R code comment"
+msgid "Compute distance matrix"
+msgstr "Berechne Distanzmatrix"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:67
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:80
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgctxt "R code comment"
+msgid "The actual multidimensional scaling"
+msgstr "Die eigentliche Multidimensionale Skalierung"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.js:192
+#. i18n: ectx: (Loaded from Multidimensional scaling)
+msgid "Subset of variables included the analysis"
+msgstr "Für die Analyse verwendete Auswahl von Variablen "
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:45
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="...">
+msgid "Data"
+msgstr "Daten"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:47
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <varselector label="...">
+msgid "Select data"
+msgstr "Ausgewählte Daten"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:49
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <varslot label="...">
+msgid "Data (data.frame, matrix or dist)"
+msgstr "Daten (data.frame oder Matrix)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:50
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="...">
+msgid "Use only a subset of variables"
+msgstr "Benutze nur eine Auswahl von Variablen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:51
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Use only a subset of variables"> <varslot label="...">
+msgid "Selected variables"
+msgstr "Ausgewählte Variablen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:53
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="...">
+msgid "Data preparation"
+msgstr "Aufbereitung der Daten"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:56
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Data preparation"> <checkbox label="...">
+msgid "Remove missing values"
+msgstr "Fehlende Werte entfernen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:59
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Data preparation"> <checkbox label="...">
+msgid "Stadardize values"
+msgstr "Werte standardisieren"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:64
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <saveobject label="...">
+msgid "Save results to workspace"
+msgstr "Speichere Ergebnisse im Workspace"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:68
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <spinbox label="...">
+msgid "Maximum dimensions"
+msgstr "Maximale DImensionen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:71
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="...">
+msgid "Distance matrix"
+msgstr "Distanzmatrix"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:72
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Distance matrix"> <dropdown label="...">
+msgid "Computation method"
+msgstr "Berechnungsmethode"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:73
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Euclidean"
+msgstr "Euklidisch"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:74
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Maximum"
+msgstr "Maximum"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:75
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Manhattan (city block)"
+msgstr "Manhattan (City Block)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:76
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Canberra"
+msgstr "Canberra"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:77
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Binary"
+msgstr "Binär"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:78
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Computation method"> <option label="...">
+msgid "Minkowski"
+msgstr "Minkowski"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:80
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Distance matrix"> <spinbox label="...">
+msgid "Power of Minkowski distance"
+msgstr "Potenz der Minkowski-Distanz"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:82
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="...">
+msgid "Advanced options"
+msgstr "Fortgeschrittene Optionen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:83
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Advanced options"> <dropdown label="...">
+msgid "Scaling method"
+msgstr "Skalierungsmethode"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:84
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Scaling method"> <option label="...">
+msgid "Classical (metric)"
+msgstr "Klassisch (metrisch)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:85
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Scaling method"> <option label="...">
+msgid "Kruskal (non-metric)"
+msgstr "Kruskal (nicht-metrisch)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:86
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Scaling method"> <option label="...">
+msgid "Sammon (non-linear)"
+msgstr "Sammon (nicht-linear)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:89
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Advanced options"> <spinbox label="...">
+msgid "Maximum number of iterations"
+msgstr "Maximale Anzahl an Iterationen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:91
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Data"> <frame label="Advanced options"> <checkbox label="...">
+msgid "Plot results"
+msgstr "Plotte Ergebnisse"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:96
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="...">
+msgid "Plot"
+msgstr "Plot"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:99
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Plot"> <frame label="...">
+msgid "Plot labels (from row names of data)"
+msgstr "Plot-Beschriftungen (aus den Zeilennamen der Daten)"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:101
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Plot"> <frame label="Plot labels (from row names of data)"> <spinbox label="...">
+msgid "Text size"
+msgstr "Textgröße"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:102
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Plot"> <frame label="Plot labels (from row names of data)"> <dropdown label="...">
+msgid "Text position"
+msgstr "Textposition"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:103
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Text position"> <option label="...">
+msgid "Instead of point"
+msgstr "Anstatt eines Punktes"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:104
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Text position"> <option label="...">
+msgid "Below point"
+msgstr "Unter dem Punkt"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:105
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Text position"> <option label="...">
+msgid "Left to point"
+msgstr "Links des Punktes"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:106
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Text position"> <option label="...">
+msgid "Above point"
+msgstr "Über dem Punkt"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:107
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> [...] <dropdown label="Text position"> <option label="...">
+msgid "Right to point"
+msgstr "Rechts des Punktes"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/plugins/Multidimensionalscaling.xml:111
+#. i18n: ectx: (Multidimensional scaling) <dialog label="Multidimensional scaling"> <tab label="Plot"> <embed label="...">
+msgid "Generic plot options"
+msgstr "Allgemeine Plot-Optionen"
+
+#. i18n: file: daten/R/rkward_plugins/git/rk.MultidimensionalScaling/inst/rkward/rk.MultidimensionalScaling.pluginmap:48
+#. i18n: ectx: <hierarchy> <menu label="...">
+msgid "Analysis"
+msgstr "Analyse"
