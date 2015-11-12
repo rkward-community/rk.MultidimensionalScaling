@@ -1,12 +1,15 @@
 ChangeLog for package rk.MultidimensionalScaling
 
-changes in version 0.01-11 (2015-11-08)
+changes in version 0.01-11 (2015-11-12)
 unreleased:
   - this release is under devoplment
 fixed:
   - corrected variable scope (distance calculation was not correctly enabled/disabled)
   - fixed Changelog version numbering
-  
+ added:
+  - initial i18n (see inst/rkward/po/)
+  - german translation
+ 
 changes in version 0.01-10 (2015-06-29)
 fixed:
   - fixed issues reading the status of checkboxes in the dialog
