@@ -199,8 +199,7 @@ mds.js.calc <- rk.paste.JS(
     if(js.prepare && scale){
       R.comment("Standardizing values")
       echo("\t", data, " <- scale(", data, ")\n")
-    },
-    linebreaks=TRUE
+    }
   ),
   js(
     if(js.prepare){
@@ -284,7 +283,6 @@ mds.js.plot <- rk.paste.JS(
             } else {}
             echo(textCol, ")")
           } else {},
-          linebreaks=TRUE,
           level=3
         ),
         plotOpts=genPlotOptions,
@@ -298,8 +296,7 @@ mds.js.plot <- rk.paste.JS(
           rk.JS.header("Subset of variables included the analysis", level=3)
           echo("rk.print(list(\"", js.selectedVars, "\"))\n\n")
         } else {}
-    } else {},
-    linebreaks=TRUE
+    } else {}
   )
 )
 
