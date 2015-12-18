@@ -1,6 +1,10 @@
 ChangeLog for package rk.MultidimensionalScaling
 
-changes in version 0.01-11 (2015-11-12)
+changes in version 0.01-12 (2015-12-18)
+unreleased:
+  - this release is under development
+
+changes in version 0.01-11 (2015-12-18)
 fixed:
   - corrected variable scope (distance calculation was not correctly enabled/disabled)
   - fixed Changelog version numbering
