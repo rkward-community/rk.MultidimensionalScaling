@@ -1,11 +1,11 @@
 <!DOCTYPE rkplugin >
 <document>
   <!-- this code was generated using the rkwarddev package.
-        perhaps don't make changes here, but in the rkwarddev script instead! -->
+    perhaps don't make changes here, but in the rkwarddev script instead! -->
   <code file="Multidimensionalscaling.js" />
   <help file="Multidimensionalscaling.rkh" />
   <!-- <dependencies>
-        </dependencies> -->
+      </dependencies> -->
   <logic>
     <connect governor="current_object.state" client="data.available" />
     <connect governor="data.available" client="varSelect.root" />

@@ -1,11 +1,28 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
+\section{Changes in rk.MultidimensionalScaling version 0.01-11 (2015-11-12)}{
+  \subsection{fixed}{
+    \itemize{
+      \item corrected variable scope (distance calculation was not correctly enabled/disabled)
+      \item fixed Changelog version numbering
+        added:
+      \item plugin is now translatable (see inst/rkward/po/)
+      \item german translation
+    }
+  }
+  \subsection{changed}{
+    \itemize{
+      \item updated the generator script
+      \item rebuilt with rkwarddev 0.08-1
+    }
+  }
+}
 \section{Changes in rk.MultidimensionalScaling version 0.01-10 (2015-06-29)}{
   \subsection{fixed}{
     \itemize{
       \item fixed issues reading the status of checkboxes in the dialog
       \item removed unused "Initial random set of centers" options and made
-        the "Maximum number of iterations" options actually work
+           the "Maximum number of iterations" options actually work
     }
   }
 }
@@ -28,7 +45,7 @@
   \subsection{fixed}{
     \itemize{
       \item corrected logic section in main dialog
-        (distance calculation was not correctly enabled/disabled)
+           (distance calculation was not correctly enabled/disabled)
     }
   }
 }
