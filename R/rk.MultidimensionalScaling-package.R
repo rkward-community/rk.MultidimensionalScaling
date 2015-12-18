@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab rk.MultidimensionalScaling\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-10\cr
-#' Date: \tab 2015-06-29\cr
+#' Version: \tab 0.01-11\cr
+#' Date: \tab 2015-11-11\cr
 #' Depends: \tab rkward (>= 0.6.0)\cr
 #' Enhances: \tab rkward\cr
 #' License: \tab GPL (>= 3)\cr

@@ -1,5 +1,5 @@
 // this code was generated using the rkwarddev package.
-//perhaps don't make changes here, but in the rkwarddev script instead!
+// perhaps don't make changes here, but in the rkwarddev script instead!
 
 // define variables globally
 var frameSelectedVarsChecked;
@@ -44,50 +44,50 @@ function calculate(){
   if(frameSelectedVarsChecked && selectedVarsShortname != "") {
     comment("Use subset of variables", "  ");  
     echo("\t" + data + " <- subset(" + data + ", select=c(\"" + selectedVarsShortname + "\"))\n");  
-  }
+  } else {}
   if(frameDataPrepEnabled && omitNA) {
     comment("Listwise removal of missings", "  ");  
     echo("\t" + data + " <- na.omit(" + data + ")\n");  
-  }
+  } else {}
   if(frameDataPrepEnabled && scale) {
     comment("Standardizing values", "  ");  
     echo("\t" + data + " <- scale(" + data + ")\n");  
-  }
+  } else {}
   if(frameDataPrepEnabled) {
     comment("Compute distance matrix", "  ");  
     echo("\tmds.distances <- dist(");  
     if(data) {
       echo("\n\t\tx=" + data);  
-    }  
+    } else {}  
     echo(",\n\t\tmethod=\"" + distMethod + "\"");  
     if(distMethod == "minkowski") {
       echo(",\n\t\tp=" + pwrMinkowski);  
-    }  
+    } else {}  
     echo("\n\t)\n");  
     comment("The actual multidimensional scaling", "  ");  
     echo("\tmds.result <- " + scaleMethod + "(");  
     if(data) {
       echo("\n\t\td=mds.distances");  
-    }  
+    } else {}  
     echo(",\n\t\tk=" + ndim);  
     if(scaleMethod == "isoMDS") {
       echo(",\n\t\tmaxit=" + maxIter);  
     } else if(scaleMethod == "sammon") {
       echo(",\n\t\tniter=" + maxIter);  
-    }  
+    } else {}  
     echo("\n\t)\n\n");  
   } else {
     comment("The actual multidimensional scaling", "  ");  
     echo("\tmds.result <- " + scaleMethod + "(");  
     if(data) {
       echo("\n\t\td=" + data);  
-    }  
+    } else {}  
     echo(",\n\t\tk=" + ndim);  
     if(scaleMethod == "isoMDS") {
       echo(",\n\t\tmaxit=" + maxIter);  
     } else if(scaleMethod == "sammon") {
       echo(",\n\t\tniter=" + maxIter);  
-    }  
+    } else {}  
     echo("\n\t)\n\n");  
   }
 }
@@ -126,7 +126,7 @@ function doPrintout(full){
   // create the plot
   if(full) {
     new Header(i18n("Multidimensional scaling")).print();
-  }
+  } else {}
 
   var framePlotLabelsChecked = getValue("framePlotLabels.checked");
   if(plotResults) {
@@ -139,7 +139,7 @@ function doPrintout(full){
 
     if(full) {
       echo("rk.graph.on()\n");
-    }
+    } else {}
     echo("    try({\n");
 
     // insert any option-setting code that should be run before the actual plotting commands:
@@ -150,16 +150,16 @@ function doPrintout(full){
     echo("\t\tplot(mds.result");
     if(scaleMethod == "isoMDS" || scaleMethod == "sammon") {
       echo("[[\"points\"]]");  
-    }
+    } else {}
     if(!genPlotOptionsCodePrintout.match(/main\s*=/)) {
       echo(",\n\t\t\tmain=\"Multidimensional scaling\"");  
-    }
+    } else {}
     if(!genPlotOptionsCodePrintout.match(/sub\s*=/)) {
       echo(",\n\t\t\tsub=\"Solution with " + ndim + " dimensions (" + scaleMethod + ")\"");  
-    }
+    } else {}
     if(framePlotLabelsChecked && textPos == 0) {
       echo(",\n\t\t\ttype=\"n\"");  
-    }
+    } else {}
     echo(genPlotOptionsCodePrintout.replace(/, /g, ",\n\t\t\t"));
     echo(")");
     if(framePlotLabelsChecked) {
@@ -171,12 +171,12 @@ function doPrintout(full){
       }  
       if(textSize != 1) {
         echo(",\n\t\t\tcex=" + textSize);  
-      }  
+      } else {}  
       if(textPos != 0) {
         echo(",\n\t\t\tpos=" + textPos);  
-      }  
+      } else {}  
       echo(textColCodePrintout + ")");  
-    }
+    } else {}
 
     // insert any option-setting code that should be run after the actual plot:
     printIndentedUnlessEmpty("      ", genPlotOptionsCodeCalculate, "\n", "");
@@ -184,15 +184,15 @@ function doPrintout(full){
     echo("\n    })\n");
     if(full) {
       echo("rk.graph.off()\n");
-    }  
-  }
+    } else {}  
+  } else {}
   if(full) {
     echo("\nrk.print(mds.result)\n");  
     if(frameSelectedVarsChecked && selectedVarsShortname != "") {
       new Header(i18n("Subset of variables included the analysis"), 3).print();  
       echo("rk.print(list(\"" + selectedVarsShortname + "\"))\n\n");  
-    }  
-  }
+    } else {}  
+  } else {}
 
   // left over from the printout function
 
@@ -204,7 +204,7 @@ function doPrintout(full){
   // assign object to chosen environment
   if(saveResultsActive) {
     echo(".GlobalEnv$" + saveResults + " <- mds.result\n");
-  }
+  } else {}
 
 
 }
