@@ -1,5 +1,7 @@
 # rk.MultidimensionalScaling
 
+[![Flattr this git repo](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=tfry&url=https://github.com/rkward-community/rk.MultidimensionalScaling&title=rk.MultidimensionalScaling&language=en_GB&tags=github&category=software)
+
 This R package provides a GUI for multidimensional scaling.
 
 ![rk.MultidimensionalScaling main tab](/inst/screenshots/main_tab.jpg?raw=true "rk.MultidimensionalScaling main tab")
