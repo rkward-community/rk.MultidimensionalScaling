@@ -4,7 +4,7 @@
 #' \tabular{ll}{
 #' Package: \tab rk.MultidimensionalScaling\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.01-12\cr
+#' Version: \tab 0.2-1\cr
 #' Date: \tab 2022-05-03\cr
 #' Depends: \tab rkward (>= 0.6.0)\cr
 #' Enhances: \tab rkward\cr

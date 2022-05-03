@@ -1,7 +1,7 @@
 Package: rk.MultidimensionalScaling
 Type: Package
 Title: RKWard GUI for multidimensional scaling
-Version: 0.01-12
+Version: 0.2-1
 Date: 2022-05-03
 Author: Meik Michalke
 Maintainer: Meik Michalke <meik.michalke@hhu.de>
