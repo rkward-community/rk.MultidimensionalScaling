@@ -14,22 +14,22 @@
     <script>
       <![CDATA[ 
         gui.addChangeCommand("data.available", "dataChanged()");
-            // this function is called whenever the data was changed
-            dataChanged = function(){
-                var prepareFrame = "true";
-                var selectFrame = "true";
-                var thisObject = makeRObject(gui.getValue("data.available"));
-                if(thisObject.classes()){
-                  if(!thisObject.isDataFrame()){
-                    selectFrame = "false";
-                    if(thisObject.classes().indexOf("dist") != -1){
-                      prepareFrame = "false";
-                    } else {}
-                  } else {}
-                } else {}
-                gui.setValue("frameSelectedVars.enabled", selectFrame);
-                gui.setValue("frameDataPrep.enabled", prepareFrame);
-              } 
+    // this function is called whenever the data was changed
+    dataChanged = function(){
+        var prepareFrame = "true";
+        var selectFrame = "true";
+        var thisObject = makeRObject(gui.getValue("data.available"));
+        if(thisObject.classes()){
+          if(!thisObject.isDataFrame()){
+            selectFrame = "false";
+            if(thisObject.classes().indexOf("dist") != -1){
+              prepareFrame = "false";
+            } else {}
+          } else {}
+        } else {}
+        gui.setValue("frameSelectedVars.enabled", selectFrame);
+        gui.setValue("frameDataPrep.enabled", prepareFrame);
+      } 
       ]]>
     </script>
     <convert id="lgc_dstMthdm" sources="distMethod.string" mode="equals" standard="minkowski" />
@@ -97,7 +97,7 @@
         <row id="row_cPPLCTS08P">
           <column id="clm_fPPLCTS08P">
             <frame label="Plot labels (from row names of data)" checkable="true" id="framePlotLabels">
-              <embed component="rkward::color_chooser" id="textCol" />
+              <embed component="rkward::rkwardcolor_chooser" id="textCol" />
               <spinbox label="Text size" id="textSize" initial="0.8" />
               <dropdown id="textPos" label="Text position">
                 <option label="Instead of point" value="0" />
@@ -109,7 +109,7 @@
             </frame>
             <stretch />
             <embed component="rkward::plot_options" as_button="true" label="Generic plot options" id="genPlotOptions" />
-            <preview />
+            <preview label="Preview" id="prv_Preview" />
           </column>
         </row>
       </tab>

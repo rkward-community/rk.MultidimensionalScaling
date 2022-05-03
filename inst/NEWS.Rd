@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package 'rk.MultidimensionalScaling'}
-\section{Changes in rk.MultidimensionalScaling version 0.01-11 (2015-11-12)}{
+\encoding{UTF-8}
+\section{Changes in rk.MultidimensionalScaling version 0.01-12 (2022-05-03)}{
+  \subsection{fixed}{
+    \itemize{
+      \item screenshot URL and removed flattr-link in README.md
+      \item replaced deprecated \code{doPrintout()} with \code{printout()} in JavaScript
+    }
+  }
+}
+\section{Changes in rk.MultidimensionalScaling version 0.01-11 (2015-12-18)}{
   \subsection{fixed}{
     \itemize{
       \item corrected variable scope (distance calculation was not correctly enabled/disabled)
