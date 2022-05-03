@@ -291,7 +291,7 @@ mds.js.plot <- rk.paste.JS(
         level=3
       )
     } else {},
-    if("full"){
+    if("!is_preview"){
       echo("\nrk.print(mds.result)\n")
       # print selected subsets, if needed
         if(js.frm.subset && js.selectedVars != ""){
@@ -320,7 +320,7 @@ mds.plugin.dir <<- rk.plugin.skeleton(
     globals=js.global.vars,
     require="MASS",
     calculate=mds.js.calc,
-    doPrintout=mds.js.plot),
+    printout=mds.js.plot),
   pluginmap=list(name="Multidimensional scaling", hierarchy=list("analysis")),
   dependencies=dependencies.info,
   create=c("pmap", "xml", "js", "desc"),
